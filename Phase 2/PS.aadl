@@ -1,0 +1,111 @@
+package PS
+public
+	data Acc
+		properties
+			Data_Model::Data_Representation => Array;
+			Data_Model::Base_Type => (classifier (PatientStatus.Impl));
+			Data_Model::Dimension => (2);
+	end Acc;
+	
+	data implementation Acc.Impl
+		-- The Command structure contains data that the Ground Station passes to the UAV.
+		-- It contains a message header, Map and Flight Pattern.
+		subcomponents
+			patientfallenornot: data Patientfallenornot;
+	end Acc.Impl;
+	
+	data Sp02
+		properties
+			Data_Model::Data_Representation => Array;
+			Data_Model::Base_Type => (classifier (PatientStatus.Impl));
+			Data_Model::Dimension => (2);	
+	end Sp02;
+	
+	data implementation Sp02.Impl
+		subcomponents
+			hearthbeat: data Hearthbeat;
+			oxidation: data Oxidation;
+	end Sp02.Impl;
+	
+	data Respiration
+		properties
+			Data_Model::Data_Representation => Array;
+			Data_Model::Base_Type => (classifier (PatientStatus.Impl));
+			Data_Model::Dimension => (2);	
+	end Respiration;
+	
+	data implementation Respiration.Impl
+		subcomponents
+			breathrate: data BreathRate;
+	end Respiration.Impl;
+	
+	data Hearthbeat
+		properties
+			Data_Model::Data_Representation => Array;
+			Data_Model::Base_Type => (classifier (PatientStatus.Impl));
+			Data_Model::Dimension => (2);
+	end Hearthbeat;
+	
+	data Oxidation
+		properties
+			Data_Model::Data_Representation => Array;
+			Data_Model::Base_Type => (classifier (PatientStatus.Impl));
+			Data_Model::Dimension => (2);
+	end Oxidation;
+	
+	data BreathRate
+		properties
+			Data_Model::Data_Representation => Array;
+			Data_Model::Base_Type => (classifier (PatientStatus.Impl));
+			Data_Model::Dimension => (2);
+	end BreathRate;
+	
+	data Ecg
+		properties
+			Data_Model::Data_Representation => Array;
+			Data_Model::Base_Type => (classifier (PatientStatus.Impl));
+			Data_Model::Dimension => (2);
+	end Ecg;
+	
+	data Tension
+		properties
+			Data_Model::Data_Representation => Array;
+			Data_Model::Base_Type => (classifier (PatientStatus.Impl));
+			Data_Model::Dimension => (2);
+	end Tension;
+	
+	data BodyTemprature
+		properties
+			Data_Model::Data_Representation => Array;
+			Data_Model::Base_Type => (classifier (PatientStatus.Impl));
+			Data_Model::Dimension => (2);
+	end BodyTemprature;
+	
+	data PatientFallenOrNot
+		properties
+			Data_Model::Data_Representation => Array;
+			Data_Model::Base_Type => (classifier (PatientStatus.Impl));
+			Data_Model::Dimension => (2);
+	end PatientFallenOrNot;
+	
+	data PatientStatus
+		-- The PatientStatus is an enumeration that defines patient’s status at home which can be either emergent, undecided,
+        --or normal. .
+		properties
+			Data_Model::Data_Representation => Enum;
+			Data_Model::Enumerators => ("Emergent", "Undecided", "Normal");
+	end FlightPattern;
+	
+	data implementation PatientStatus.imp
+		-- The Patient structure contains data that the patient status passes to the HMS.
+		-- It contains a message normal,emergent,undecided.
+		subcomponents
+			acc: data Acc;
+			sp02: data Sp02;
+			ecg: data Ecg;
+			respiration: data Respiration
+			bloodPressure: data BloodPressure;
+			bodyTemprature: data BodyTemprature;
+	end PatientStatus.Impl;
+	
+end PS;

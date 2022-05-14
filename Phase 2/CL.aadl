@@ -1,0 +1,24 @@
+package CL
+public
+	process Cloud
+		features
+			patient_recv: in event data port HMS::HMS.Impl; 
+			patient_send: out event data port HMS::HMS.Impl;
+			patientrelative_recv: in event data port HMS::HMS.Impl; 
+			patientrelative_send: out event data port HMS::HMS.Impl;
+			doctor_recv: in event data port HMS::HMS.Impl; 
+			doctor_send: out event data port HMS::HMS.Impl;
+	end SW;
+
+	process implementation Cloud.Impl
+		subcomponents
+			WEBINT: thread WEBINT.Impl;
+		connections
+			c1: port H_recv -> HMS.recv_data;
+			c2: port Cloud.send_data -> cloud_send;
+			c3: port PatientStatus.status -> HMS.status;
+			c4: port PatientStatus.status -> HMS.status;
+	end Cloud.Impl;
+	
+	end Cloud;
+end CL;

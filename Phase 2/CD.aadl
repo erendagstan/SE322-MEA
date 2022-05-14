@@ -1,0 +1,20 @@
+package CD
+public
+	process CompDev
+		properties
+			Data_Model::Data_Representation => Array;
+			Data_Model::Base_Type => (classifier (PatientStatus.Impl));
+			Data_Model::Dimension => (2);
+	end CompDev;
+	
+	thread Bluetooth
+		features
+			status: out event data port HMS.Impl;
+			recv_data: in event data port PS::PatientStatus.Impl;
+	end Bluetooth;
+	
+	process implementation CompDev
+		subcomponents
+			bt: thread Bluetooth;
+	end CompDev;
+end CD;

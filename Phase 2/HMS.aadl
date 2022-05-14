@@ -1,0 +1,31 @@
+package HMS
+public
+	with PS;
+	with CD;
+	with CL;
+	
+	thread WebInterface
+		features
+			mission_window: in event data port MissionWindow;
+			recv_data: in event data port CL::Cloud.Impl;
+			send_data: out event data port HMS::HMS.Impl;
+	end WebInterface;
+	
+	system HMS
+		features
+			patient_status: in event data port;
+			patient_status: out event data port;
+		properties
+			CASE_Properties::BOUNDARY => (PHYSICAL);
+	end HMS;
+	
+	system implementation HMS.Impl
+		subcomponents
+			PSAT: system PS::PatinetStatus.Impl;
+			CDST: system CD::CompDev.Impl;
+		connections
+			c1: port cloud_recv -> CL.cloud_recv;
+	end HMS.Impl;
+	
+		
+end HMS;
